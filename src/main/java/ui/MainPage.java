@@ -1,9 +1,10 @@
-import org.apache.commons.lang.RandomStringUtils;
-import org.bouncycastle.crypto.prng.RandomGenerator;
+package ui;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ui.BasePage;
 
 public class MainPage extends BasePage {
 
@@ -49,6 +50,8 @@ public class MainPage extends BasePage {
     }
 
     public void setEmailField(String email) {
+        new WebDriverWait(webDriver, 8)
+                .until(ExpectedConditions.presenceOfElementLocated(emailField));
         webDriver.findElement(emailField).sendKeys(email);
     }
 
@@ -63,7 +66,7 @@ public class MainPage extends BasePage {
     public void waitForLoadHomePage() {
         // подожди 8 секунд, пока появится веб-элемент с нужным текстом
         new WebDriverWait(webDriver, 8)
-                .until(ExpectedConditions.visibilityOfElementLocated(personalAccount));
+                .until(ExpectedConditions.visibilityOfElementLocated(createBurgerHeader));
     }
 
     public boolean checkPasswordError() {
@@ -71,6 +74,8 @@ public class MainPage extends BasePage {
     }
 
     public boolean checkAuthorizationHeader() {
+        new WebDriverWait(webDriver, 8)
+                .until(ExpectedConditions.presenceOfElementLocated(authorizationHeader));
         return webDriver.findElement(authorizationHeader).isDisplayed();
     }
 
@@ -79,11 +84,15 @@ public class MainPage extends BasePage {
     }
 
     public void clickEnterAccount() {
-        webDriver.findElement(enterButton).click();
-    }
+        new WebDriverWait(webDriver, 8)
+                .until(ExpectedConditions.presenceOfElementLocated(enterButton));
+            webDriver.findElement(enterButton).click();
+        }
 
     public boolean checkOrderButton() {
-        return webDriver.findElement(enterButton).isDisplayed();
+        new WebDriverWait(webDriver, 8)
+                .until(ExpectedConditions.presenceOfElementLocated(orderButton));
+        return webDriver.findElement(orderButton).isDisplayed();
     }
 
     public void clickEnterLink() {

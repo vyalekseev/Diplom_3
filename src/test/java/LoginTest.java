@@ -1,17 +1,25 @@
 import io.qameta.allure.junit4.DisplayName;
-import jdk.jfr.Description;
 import org.junit.Assert;
 import org.junit.Test;
+import ui.MainPage;
 
 public class LoginTest extends BaseUITest {
     @Test
     @DisplayName("Вход по кнопке «Войти в аккаунт» на главной")
     public void authorizationMainPage() {
         MainPage mainPage = new MainPage(webDriver);
+        mainPage.clickPersonalAccount();
+        mainPage.clickRegistrationLink();
+        mainPage.setNameField(name);
+        mainPage.setEmailField(email);
+        mainPage.setPasswordField(password);
+        mainPage.clickRegistrationButton();
+        mainPage.clickStellarBurgers();
+
         mainPage.clickEnterAccountMain();
         mainPage.checkAuthorizationHeader();
-        mainPage.setEmailField("testtest@test.ru");
-        mainPage.setPasswordField("123456");
+        mainPage.setEmailField(email);
+        mainPage.setPasswordField(password);
         mainPage.clickEnterAccount();
         Assert.assertTrue("Не отображается кнопка Оформить заказ", mainPage.checkOrderButton());
     }
@@ -21,9 +29,16 @@ public class LoginTest extends BaseUITest {
     public void authorizationFromPersonalAccount() {
         MainPage mainPage = new MainPage(webDriver);
         mainPage.clickPersonalAccount();
+        mainPage.clickRegistrationLink();
+        mainPage.setNameField(name);
+        mainPage.setEmailField(email);
+        mainPage.setPasswordField(password);
+        mainPage.clickRegistrationButton();
+
+        mainPage.clickPersonalAccount();
         mainPage.checkAuthorizationHeader();
-        mainPage.setEmailField("testtest@test.ru");
-        mainPage.setPasswordField("123456");
+        mainPage.setEmailField(email);
+        mainPage.setPasswordField(password);
         mainPage.clickEnterAccount();
         Assert.assertTrue("Не отображается кнопка Оформить заказ", mainPage.checkOrderButton());
     }
@@ -34,10 +49,16 @@ public class LoginTest extends BaseUITest {
         MainPage mainPage = new MainPage(webDriver);
         mainPage.clickPersonalAccount();
         mainPage.clickRegistrationLink();
+        mainPage.setNameField(name);
+        mainPage.setEmailField(email);
+        mainPage.setPasswordField(password);
+        mainPage.clickRegistrationButton();
+
+        mainPage.clickRegistrationLink();
         mainPage.clickEnterLink();
         Assert.assertTrue("Не отображается заголовок Вход", mainPage.checkAuthorizationHeader());
-        mainPage.setEmailField("testtest@test.ru");
-        mainPage.setPasswordField("123456");
+        mainPage.setEmailField(email);
+        mainPage.setPasswordField(password);
         mainPage.clickEnterAccount();
         Assert.assertTrue("Не отображается кнопка Оформить заказ", mainPage.checkOrderButton());
     }
@@ -47,12 +68,19 @@ public class LoginTest extends BaseUITest {
     public void authorizationFromForgotPassword() {
         MainPage mainPage = new MainPage(webDriver);
         mainPage.clickPersonalAccount();
+        mainPage.clickRegistrationLink();
+        mainPage.setNameField(name);
+        mainPage.setEmailField(email);
+        mainPage.setPasswordField(password);
+        mainPage.clickRegistrationButton();
+
+        mainPage.clickPersonalAccount();
         mainPage.clickForgotPassword();
         Assert.assertTrue("Не отображается заголовок Восстановление пароля", mainPage.checkForgotPasswordHeader());
         mainPage.clickEnterLink();
         Assert.assertTrue("Не отображается заголовок Вход", mainPage.checkAuthorizationHeader());
-        mainPage.setEmailField("testtest@test.ru");
-        mainPage.setPasswordField("123456");
+        mainPage.setEmailField(email);
+        mainPage.setPasswordField(password);
         mainPage.clickEnterAccount();
         Assert.assertTrue("Не отображается кнопка Оформить заказ", mainPage.checkOrderButton());
     }
